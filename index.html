@@ -1,0 +1,1377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>NEXUS PLACEMENT · UK hiring & Immigration</title>
+    <script src="https://cdn.tailwindcss.com">
+    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <style>
+        body {
+            background: #f2f8ff;
+            margin: 0;
+            font-family: system-ui, sans-serif;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(6px);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            transition: all 0.25s ease;
+        }
+        .glass-card:hover {
+            background: rgba(255, 255, 255, 0.85);
+            box-shadow: 0 20px 30px -12px rgba(0, 0, 0, 0.12);
+            transform: translateY(-6px);
+        }
+        .btn-apply {
+            background: #1e293b;
+            transition: all 0.2s;
+        }
+        .btn-apply:hover {
+            background: #0f172a;
+            transform: scale(1.02);
+            box-shadow: 0 8px 18px rgba(30, 41, 59, 0.3);
+        }
+        .btn-big-apply {
+            background: #0f172a;
+            padding: 14px 36px;
+            font-size: 1.3rem;
+            font-weight: 700;
+            border-radius: 60px;
+            position: relative;
+            overflow: visible;
+            transition: all 0.2s;
+            box-shadow: 0 8px 24px rgba(15, 23, 42, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+        }
+        .btn-big-apply:hover {
+            transform: scale(1.04);
+            background: #0b1322;
+            box-shadow: 0 12px 32px rgba(15, 23, 42, 0.6);
+        }
+        .btn-big-apply i {
+            margin-right: 10px;
+            font-size: 1.5rem;
+        }
+        #sparkle-canvas {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 200%;
+            height: 200%;
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+            z-index: 0;
+            border-radius: 60px;
+        }
+        .btn-big-apply .btn-content {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        #jobs-page {
+            background: #eef2f6;
+        }
+        #services-page {
+            background: #eef2f6;
+        }
+        #visa-page {
+            background: #eef2f6;
+        }
+        #trust-page {
+            background: #eef2f6;
+        }
+        .page-transition {
+            animation: fadeUp 0.5s ease-out;
+        }
+        @keyframes fadeUp {
+            0% {
+                opacity: 0;
+                transform: translateY(18px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .glow-logo {
+            filter: drop-shadow(0 0 16px rgba(0, 140, 255, 0.4));
+            transition: filter 0.3s ease;
+        }
+        .glow-logo:hover {
+            filter: drop-shadow(0 0 32px rgba(0, 140, 255, 0.8));
+        }
+        .fire-glow {
+            filter: drop-shadow(0 0 20px rgba(255, 120, 0, 0.3));
+            transition: filter 0.3s;
+        }
+        .fire-glow:hover {
+            filter: drop-shadow(0 0 40px rgba(255, 80, 0, 0.6));
+        }
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #eef2f6;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #b0c4de;
+            border-radius: 12px;
+        }
+        .particle-wrapper {
+            position: relative;
+            display: inline-block;
+        }
+        .particle-wrapper canvas {
+            display: block;
+            border-radius: inherit;
+        }
+        #particle-canvas,
+        #fire-canvas {
+            pointer-events: none;
+        }
+        .fulltime-badge {
+            background: #0f172a;
+            color: #facc15;
+            font-size: 0.65rem;
+            font-weight: 700;
+            padding: 2px 12px;
+            border-radius: 20px;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            border: 1px solid rgba(250, 204, 21, 0.2);
+        }
+        .service-card {
+            border-left: 4px solid #2563eb;
+            transition: border-color 0.3s;
+        }
+        .service-card:hover {
+            border-left-color: #facc15;
+        }
+        .req-badge {
+            background: #1e293b;
+            color: #e2e8f0;
+            font-size: 0.6rem;
+            padding: 2px 8px;
+            border-radius: 12px;
+            display: inline-block;
+            margin: 2px 0;
+        }
+        .req-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 4px;
+            margin-top: 4px;
+        }
+        .req-list .req-badge {
+            background: #1e293b;
+            color: #e2e8f0;
+        }
+        /* Disclaimer weather animation */
+        #weather-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            border-radius: 16px;
+            z-index: 0;
+        }
+        .disclaimer-wrapper {
+            position: relative;
+            overflow: hidden;
+            border-radius: 16px;
+        }
+        .disclaimer-content {
+            position: relative;
+            z-index: 1;
+        }
+        /* Trust footer cards */
+        .trust-card {
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(4px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            transition: all 0.3s;
+        }
+        .trust-card:hover {
+            background: rgba(255, 255, 255, 0.85);
+            transform: translateY(-4px);
+            box-shadow: 0 12px 24px -8px rgba(0, 0, 0, 0.1);
+        }
+        /* Animated service titles */
+        .service-title {
+            background: linear-gradient(135deg, #1e293b, #334155);
+            color: white;
+            padding: 4px 16px;
+            border-radius: 30px;
+            display: inline-block;
+            font-weight: 700;
+            font-size: 0.85rem;
+            letter-spacing: 0.5px;
+            animation: pulseGlow 2s ease-in-out infinite;
+            border: 1px solid rgba(250, 204, 21, 0.2);
+        }
+        @keyframes pulseGlow {
+            0%,
+            100% {
+                box-shadow: 0 0 8px rgba(250, 204, 21, 0.2);
+            }
+            50% {
+                box-shadow: 0 0 20px rgba(250, 204, 21, 0.5);
+            }
+        }
+        .service-title i {
+            margin-right: 8px;
+            color: #facc15;
+        }
+
+        /* Navigation Menu Styles */
+        .nav-menu-btn {
+            background: none;
+            border: none;
+            color: #1e293b;
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 8px 12px;
+            border-radius: 10px;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .nav-menu-btn:hover {
+            background: rgba(30, 41, 59, 0.08);
+            color: #2563eb;
+        }
+        .nav-menu-btn span {
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+        .nav-dropdown {
+            display: none;
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(12px);
+            border-radius: 16px;
+            min-width: 220px;
+            box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            padding: 8px 0;
+            z-index: 100;
+            margin-top: 8px;
+        }
+        .nav-dropdown.active {
+            display: block;
+            animation: slideDown 0.25s ease-out;
+        }
+        @keyframes slideDown {
+            0% {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .nav-dropdown a {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 20px;
+            color: #1e293b;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: all 0.15s;
+            border-left: 3px solid transparent;
+        }
+        .nav-dropdown a:hover {
+            background: rgba(37, 99, 235, 0.08);
+            border-left-color: #2563eb;
+            color: #2563eb;
+        }
+        .nav-dropdown a i {
+            width: 20px;
+            color: #64748b;
+        }
+        .nav-dropdown a:hover i {
+            color: #2563eb;
+        }
+        .nav-dropdown .divider {
+            height: 1px;
+            background: #e2e8f0;
+            margin: 4px 16px;
+        }
+        .nav-wrapper {
+            position: relative;
+        }
+        /* Company description style */
+        .company-description {
+            font-size: 1.05rem;
+            color: #475569;
+            max-width: 650px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.7;
+            padding: 0 12px;
+        }
+        .company-description strong {
+            color: #1e293b;
+        }
+        .company-description .highlight {
+            color: #2563eb;
+            font-weight: 600;
+        }
+        /* Small logo before title */
+        .title-logo {
+            display: inline-block;
+            font-size: 2.8rem;
+            margin-right: 6px;
+            vertical-align: middle;
+            filter: drop-shadow(0 0 12px rgba(37, 99, 235, 0.3));
+            animation: logoPulse 3s ease-in-out infinite;
+        }
+        @keyframes logoPulse {
+            0%,
+            100% {
+                transform: scale(1) rotate(0deg);
+            }
+            50% {
+                transform: scale(1.05) rotate(2deg);
+            }
+        }
+        .title-logo i {
+            background: linear-gradient(135deg, #2563eb, #7c3aed);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .title-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+            flex-wrap: wrap;
+        }
+
+        /* ===== NEW FOOTER STYLES ===== */
+        .footer-neon-btn {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 10px 20px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            color: white;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+        }
+        .footer-neon-btn i {
+            font-size: 1.1rem;
+        }
+        .footer-neon-btn.facebook {
+            background: #1877f2;
+            box-shadow: 0 0 15px rgba(24, 119, 242, 0.4);
+            cursor: default;
+            opacity: 0.7;
+        }
+        .footer-neon-btn.facebook:hover {
+            box-shadow: 0 0 15px rgba(24, 119, 242, 0.4);
+            transform: none;
+        }
+        .footer-neon-btn.whatsapp {
+            background: #25D366;
+            box-shadow: 0 0 15px rgba(37, 211, 102, 0.4);
+        }
+        .footer-neon-btn.whatsapp:hover {
+            box-shadow: 0 0 35px rgba(37, 211, 102, 0.8);
+            transform: translateY(-3px) scale(1.05);
+        }
+        .footer-neon-btn.email {
+            background: #ea4335;
+            box-shadow: 0 0 15px rgba(234, 67, 53, 0.4);
+        }
+        .footer-neon-btn.email:hover {
+            box-shadow: 0 0 35px rgba(234, 67, 53, 0.8);
+            transform: translateY(-3px) scale(1.05);
+        }
+        .footer-neon-btn.subscribe {
+            background: #7c3aed;
+            box-shadow: 0 0 15px rgba(124, 58, 237, 0.4);
+        }
+        .footer-neon-btn.subscribe:hover {
+            box-shadow: 0 0 35px rgba(124, 58, 237, 0.8);
+            transform: translateY(-3px) scale(1.05);
+        }
+
+        /* Animated Character */
+        .footer-character {
+            font-size: 4.5rem;
+            line-height: 1;
+            display: inline-block;
+            animation: waveCharacter 2s ease-in-out infinite;
+            filter: drop-shadow(0 0 20px rgba(37, 99, 235, 0.3));
+            user-select: none;
+        }
+        @keyframes waveCharacter {
+            0%,
+            100% {
+                transform: rotate(0deg) translateY(0);
+            }
+            25% {
+                transform: rotate(8deg) translateY(-6px);
+            }
+            75% {
+                transform: rotate(-4deg) translateY(4px);
+            }
+        }
+        .footer-character .wave-hand {
+            display: inline-block;
+            animation: waveHand 1.2s ease-in-out infinite;
+            transform-origin: bottom center;
+        }
+        @keyframes waveHand {
+            0%,
+            100% {
+                transform: rotate(0deg);
+            }
+            25% {
+                transform: rotate(25deg);
+            }
+            75% {
+                transform: rotate(-10deg);
+            }
+        }
+        .footer-character .smile {
+            display: inline-block;
+            animation: smileBounce 2.5s ease-in-out infinite;
+        }
+        @keyframes smileBounce {
+            0%,
+            100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.1);
+            }
+        }
+        .footer-badge {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(4px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            padding: 4px 14px;
+            font-size: 0.65rem;
+            color: rgba(255, 255, 255, 0.8);
+            display: inline-block;
+        }
+        .footer-glass {
+            background: rgba(15, 23, 42, 0.85);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ===================== PAGE 1: HOME ===================== -->
+    <section id="home" class="page-transition min-h-screen flex flex-col relative">
+        <header class="w-full px-6 py-4 flex items-center justify-between bg-white/70 backdrop-blur-sm border-b border-white/40 shadow-sm sticky top-0 z-30">
+            <div class="flex items-center gap-3">
+                <div class="text-2xl font-extrabold tracking-tight text-slate-800 fire-glow">
+                    <span class="text-blue-600">NEXUS</span> PLACEMENT
+                </div>
+                <span class="text-xs font-medium bg-blue-100 text-blue-700 px-3 py-1 rounded-full">UK · hiring</span>
+            </div>
+
+            <!-- Navigation Menu Button with Dropdown -->
+            <div class="nav-wrapper">
+                <button class="nav-menu-btn" onclick="toggleMenu()" aria-label="Navigation Menu">
+                    <i class="fas fa-bars"></i>
+                    <span>Menu</span>
+                </button>
+                <div class="nav-dropdown" id="navDropdown">
+                    <a href="#home"><i class="fas fa-home"></i> Home</a>
+                    <a href="#jobs-page"><i class="fas fa-briefcase"></i> Available Jobs</a>
+                    <a href="#services-page"><i class="fas fa-concierge-bell"></i> Our Services</a>
+                    <a href="#visa-page"><i class="fas fa-passport"></i> Visa Services</a>
+                    <a href="#trust-page"><i class="fas fa-shield-halved"></i> Why People Trust Us</a>
+                    <div class="divider"></div>
+                    <a href="#contact"><i class="fas fa-phone"></i> Contact</a>
+                </div>
+            </div>
+        </header>
+
+        <main class="flex-1 flex items-center justify-center px-4 py-8 relative z-10">
+            <div class="max-w-4xl w-full text-center">
+                <div class="flex justify-center mb-4">
+                    <div class="particle-wrapper glow-logo">
+                        <div class="w-48 h-48 rounded-3xl bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center shadow-2xl ring-4 ring-white/50 relative overflow-hidden" id="logo-container">
+                            <span class="text-7xl font-black text-white drop-shadow-lg z-10 relative">N✧</span>
+                            <canvas id="particle-canvas" class="absolute inset-0 w-full h-full"></canvas>
+                        </div>
+                    </div>
+                </div>
+                <div class="particle-wrapper fire-glow relative inline-block mt-2" id="fire-wrapper">
+                    <div class="title-wrapper">
+                        <span class="title-logo"><i class="fas fa-bolt"></i></span>
+                        <h1 class="text-5xl md:text-6xl font-bold text-slate-800 leading-tight relative z-10 bg-clip-text text-transparent bg-gradient-to-r from-orange-500 to-red-600">
+                            NEXUS PLACEMENT
+                        </h1>
+                    </div>
+                    <canvas id="fire-canvas" class="absolute inset-0 w-full h-full pointer-events-none" style="border-radius:20px;"></canvas>
+                </div>
+
+                <!-- ===== COMPANY DESCRIPTION ===== -->
+                <div class="company-description mt-4">
+                    <p>
+                        <strong>NEXUS PLACEMENT</strong> is your trusted partner for <span class="highlight">UK job placements</span> and 
+                        <span class="highlight">immigration services</span>. We connect talented individuals with verified employers across 
+                        the United Kingdom, offering full-time positions with <strong>competitive salaries, free accommodation, 
+                        and visa support</strong>. Our mission is to make your transition to the UK seamless and rewarding.
+                    </p>
+                </div>
+
+                <!-- ===== DISCLAIMER WITH WEATHER ANIMATION ===== -->
+                <div class="disclaimer-wrapper mt-5 mx-auto max-w-3xl">
+                    <canvas id="weather-canvas" class="absolute inset-0 w-full h-full"></canvas>
+                    <div class="disclaimer-content bg-red-50/90 backdrop-blur-sm border-2 border-red-300 rounded-2xl p-5 text-left relative z-10">
+                        <h3 class="text-sm font-bold text-red-700 uppercase tracking-wider flex items-center gap-2 mb-2">
+                            <i class="fas fa-triangle-exclamation"></i> OFFICIAL DISCLAIMER - PLEASE READ
+                            <i class="fas fa-cloud-rain text-blue-500 ml-1"></i>
+                            <i class="fas fa-snowflake text-blue-300 ml-1"></i>
+                            <i class="fas fa-cloud-hail text-gray-500 ml-1"></i>
+                        </h3>
+                        <p class="text-xs text-slate-700 leading-relaxed">
+                            <span class="font-bold text-red-600">NexusPlacement is NOT a recruitment agency</span>, we do not charge for job placements, visas or interviews.
+                            Your <span class="font-bold">$34.80 consultation fees</span> covers personalised guidance, access to a verified portal database and NEA verification tools.
+                            All job applications are made by you on official employer websites.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="mt-6 flex flex-wrap justify-center gap-4">
+                    <a href="#jobs-page" class="bg-slate-800 hover:bg-slate-700 text-white px-8 py-3 rounded-full font-medium shadow-lg transition flex items-center gap-2">
+                        <i class="fas fa-briefcase"></i> Available Jobs
+                    </a>
+                    <a href="#services-page" class="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-full font-medium shadow-lg transition flex items-center gap-2">
+                        <i class="fas fa-concierge-bell"></i> Our Services
+                    </a>
+                    <a href="#contact" class="bg-white hover:bg-gray-100 text-slate-700 px-8 py-3 rounded-full font-medium shadow-md transition flex items-center gap-2 border border-gray-200">
+                        <i class="fas fa-phone-alt"></i> Contact
+                    </a>
+                </div>
+                <div class="mt-6 text-sm text-slate-500 bg-white/40 backdrop-blur-sm p-3 rounded-2xl inline-block px-6">
+                    <i class="fas fa-map-pin text-blue-500 mr-2"></i> 42 Chapel Street, Manchester M1 5PL, United Kingdom
+                </div>
+            </div>
+        </main>
+        <footer class="py-4 text-center text-xs text-slate-400 border-t border-white/30 relative z-10">© 2026 NEXUS PLACEMENT · hiring made human</footer>
+    </section>
+
+    <!-- ===================== PAGE 2: JOBS ===================== -->
+    <section id="jobs-page" class="page-transition min-h-screen py-16 px-4 md:px-8" style="background:#eef2f6;">
+        <div class="max-w-7xl mx-auto">
+            <div class="flex items-center justify-between flex-wrap gap-4 mb-10">
+                <h2 class="text-4xl font-bold text-slate-800 flex items-center gap-3">
+                    <i class="fas fa-list-ul text-blue-500"></i> Job Listings · <span class="text-sm font-normal text-slate-500">12 full-time</span>
+                </h2>
+                <a href="#home" class="text-sm bg-white/70 hover:bg-white px-4 py-2 rounded-full transition shadow-sm"><i class="fas fa-arrow-left mr-1"></i> back to home</a>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="job-grid"></div>
+
+            <div class="mt-12 text-center">
+                <a href="#contact" class="inline-block bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-full shadow-lg transition">Need help? Contact us <i class="fas fa-arrow-right ml-2"></i></a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===================== PAGE 3: SERVICES ===================== -->
+    <section id="services-page" class="page-transition min-h-screen py-16 px-4 md:px-8" style="background:#eef2f6;">
+        <div class="max-w-6xl mx-auto">
+            <div class="flex items-center justify-between flex-wrap gap-4 mb-10">
+                <h2 class="text-4xl font-bold text-slate-800 flex items-center gap-3">
+                    <i class="fas fa-concierge-bell text-blue-500"></i> Our Services
+                </h2>
+                <a href="#home" class="text-sm bg-white/70 hover:bg-white px-4 py-2 rounded-full transition shadow-sm"><i class="fas fa-arrow-left mr-1"></i> back to home</a>
+            </div>
+
+            <!-- Service Benefits -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+
+                <div class="glass-card rounded-2xl p-6 shadow-sm service-card">
+                    <div class="service-title mb-3"><i class="fas fa-plane-departure"></i> VISA & FLIGHTS COVERED</div>
+                    <p class="text-sm text-slate-600 leading-relaxed">We handle your work visa and pay for your flight tickets with <span class="font-bold">no upfront costs</span> for you. Your journey starts with zero financial burden.</p>
+                </div>
+
+                <div class="glass-card rounded-2xl p-6 shadow-sm service-card">
+                    <div class="service-title mb-3"><i class="fas fa-home"></i> FREE ACCOMMODATION</div>
+                    <p class="text-sm text-slate-600 leading-relaxed">Comfortable, <span class="font-bold">employer-provided housing</span> so you can settle in with ease. No rent worries from day one.</p>
+                </div>
+
+                <div class="glass-card rounded-2xl p-6 shadow-sm service-card">
+                    <div class="service-title mb-3"><i class="fas fa-coins"></i> COMPETITIVE SALARY</div>
+                    <p class="text-sm text-slate-600 leading-relaxed">Fair, transparent pay, with <span class="font-bold">overtime and shift premiums</span> on top. You'll always know what you're earning.</p>
+                </div>
+
+                <div class="glass-card rounded-2xl p-6 shadow-sm service-card">
+                    <div class="service-title mb-3"><i class="fas fa-heartbeat"></i> MEDICAL INSURANCE</div>
+                    <p class="text-sm text-slate-600 leading-relaxed"><span class="font-bold">Health cover included from day one</span> for your peace of mind. You and your family are protected.</p>
+                </div>
+
+                <div class="glass-card rounded-2xl p-6 shadow-sm service-card">
+                    <div class="service-title mb-3"><i class="fas fa-handshake"></i> TRUSTED EMPLOYERS</div>
+                    <p class="text-sm text-slate-600 leading-relaxed">We only partner with <span class="font-bold">verified, reputable companies abroad</span>. Every employer is carefully vetted.</p>
+                </div>
+
+                <div class="glass-card rounded-2xl p-6 shadow-sm service-card">
+                    <div class="service-title mb-3"><i class="fas fa-headset"></i> SUPPORT ALL THE WAY</div>
+                    <p class="text-sm text-slate-600 leading-relaxed">From application to arrival, <span class="font-bold">our team guides you at every step</span>. You're never alone in this journey.</p>
+                </div>
+            </div>
+
+            <div class="mt-12 text-center">
+                <a href="#visa-page" class="inline-block bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-full shadow-lg transition">View Visa Services <i class="fas fa-arrow-right ml-2"></i></a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===================== PAGE 4: VISA SERVICES ===================== -->
+    <section id="visa-page" class="page-transition min-h-screen py-16 px-4 md:px-8" style="background:#eef2f6;">
+        <div class="max-w-6xl mx-auto">
+            <div class="flex items-center justify-between flex-wrap gap-4 mb-10">
+                <h2 class="text-4xl font-bold text-slate-800 flex items-center gap-3">
+                    <i class="fas fa-passport text-blue-500"></i> Visa & Immigration Services
+                </h2>
+                <a href="#home" class="text-sm bg-white/70 hover:bg-white px-4 py-2 rounded-full transition shadow-sm"><i class="fas fa-arrow-left mr-1"></i> back to home</a>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+                <div class="glass-card rounded-2xl p-6 shadow-sm service-card">
+                    <div class="flex items-center gap-3 mb-3">
+                        <span class="text-3xl">🎓</span>
+                        <h3 class="text-xl font-bold text-slate-800">Student Visa</h3>
+                    </div>
+                    <p class="text-sm text-slate-600 leading-relaxed">We guide international students through the UK Student Visa process. Our team assists with CAS letters, financial proof, English language requirements, and visa application submission.</p>
+                </div>
+
+                <div class="glass-card rounded-2xl p-6 shadow-sm service-card">
+                    <div class="flex items-center gap-3 mb-3">
+                        <span class="text-3xl">💼</span>
+                        <h3 class="text-xl font-bold text-slate-800">Work Visa</h3>
+                    </div>
+                    <p class="text-sm text-slate-600 leading-relaxed">Our work visa services cover Skilled Worker Visa, Health and Care Worker Visa, and other work routes. We help with Certificate of Sponsorship (CoS) and document preparation.</p>
+                </div>
+
+                <div class="glass-card rounded-2xl p-6 shadow-sm service-card">
+                    <div class="flex items-center gap-3 mb-3">
+                        <span class="text-3xl">🏠</span>
+                        <h3 class="text-xl font-bold text-slate-800">Residency Programs</h3>
+                    </div>
+                    <p class="text-sm text-slate-600 leading-relaxed">We offer comprehensive UK residency solutions including Indefinite Leave to Remain (ILR), EU Settlement Scheme, and long-term residency applications.</p>
+                </div>
+
+                <div class="glass-card rounded-2xl p-6 shadow-sm service-card">
+                    <div class="flex items-center gap-3 mb-3">
+                        <span class="text-3xl">🌍</span>
+                        <h3 class="text-xl font-bold text-slate-800">Citizenship by Investment</h3>
+                    </div>
+                    <p class="text-sm text-slate-600 leading-relaxed">Expert guidance on UK citizenship routes through investment, including Innovator Founder visa and Global Talent visa pathways with full application support.</p>
+                </div>
+
+                <div class="glass-card rounded-2xl p-6 shadow-sm service-card">
+                    <div class="flex items-center gap-3 mb-3">
+                        <span class="text-3xl">👨‍👩‍👧‍👦</span>
+                        <h3 class="text-xl font-bold text-slate-800">Family Sponsorship</h3>
+                    </div>
+                    <p class="text-sm text-slate-600 leading-relaxed">We assist with UK family visas including spouse/partner visas, child dependant visas, and parent sponsorship with comprehensive application management.</p>
+                </div>
+
+            </div>
+
+            <div class="mt-12 text-center">
+                <a href="#contact" class="inline-block bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-full shadow-lg transition">Contact us for visa services <i class="fas fa-arrow-right ml-2"></i></a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===================== PAGE 5: WHY PEOPLE TRUST US ===================== -->
+    <section id="trust-page" class="page-transition min-h-screen py-16 px-4 md:px-8" style="background:#eef2f6;">
+        <div class="max-w-6xl mx-auto">
+            <div class="flex items-center justify-between flex-wrap gap-4 mb-10">
+                <h2 class="text-4xl font-bold text-slate-800 flex items-center gap-3">
+                    <i class="fas fa-shield-halved text-blue-500"></i> Why People Trust Us
+                </h2>
+                <a href="#home" class="text-sm bg-white/70 hover:bg-white px-4 py-2 rounded-full transition shadow-sm"><i class="fas fa-arrow-left mr-1"></i> back to home</a>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="trust-card rounded-2xl p-6 text-center">
+                    <div class="text-4xl mb-3 text-blue-500">✅</div>
+                    <h4 class="font-bold text-lg text-slate-800">VERIFIED JOB LISTINGS</h4>
+                    <p class="text-sm text-slate-600 mt-2 leading-relaxed">Every job is manually verified and sourced directly from reputable employers. No scams, no fake ads. We ensure every opportunity is legitimate and vetted.</p>
+                </div>
+
+                <div class="trust-card rounded-2xl p-6 text-center">
+                    <div class="text-4xl mb-3 text-blue-500">🤝</div>
+                    <h4 class="font-bold text-lg text-slate-800">DIRECT EMPLOYER CONTACT</h4>
+                    <p class="text-sm text-slate-600 mt-2 leading-relaxed">You connect directly with employers. We eliminate middlemen so you get transparent communication and clear expectations from the start.</p>
+                </div>
+
+                <div class="trust-card rounded-2xl p-6 text-center">
+                    <div class="text-4xl mb-3 text-blue-500">⚡</div>
+                    <h4 class="font-bold text-lg text-slate-800">FAST APPLICATION PROCESS</h4>
+                    <p class="text-sm text-slate-600 mt-2 leading-relaxed">Streamlined application with quick response times. Most applicants hear back within 48 hours. We value your time and keep things moving efficiently.</p>
+                </div>
+
+                <div class="trust-card rounded-2xl p-6 text-center">
+                    <div class="text-4xl mb-3 text-blue-500">🔒</div>
+                    <h4 class="font-bold text-lg text-slate-800">NO HIDDEN FEES</h4>
+                    <p class="text-sm text-slate-600 mt-2 leading-relaxed">Clear upfront terms, what we tell you is what you get always.</p>
+                </div>
+
+                <div class="trust-card rounded-2xl p-6 text-center">
+                    <div class="text-4xl mb-3 text-blue-500">🛡️</div>
+                    <h4 class="font-bold text-lg text-slate-800">SECURE COMMUNICATION</h4>
+                    <p class="text-sm text-slate-600 mt-2 leading-relaxed">All your data is encrypted and protected. We never share your information with third parties. Your privacy and security are our top priorities.</p>
+                </div>
+
+                <div class="trust-card rounded-2xl p-6 text-center">
+                    <div class="text-4xl mb-3 text-blue-500">⭐</div>
+                    <h4 class="font-bold text-lg text-slate-800">PROVEN TRACK RECORD</h4>
+                    <p class="text-sm text-slate-600 mt-2 leading-relaxed">Thousands of successful placements and satisfied clients. Our reputation is built on trust, reliability, and delivering real results.</p>
+                </div>
+            </div>
+
+            <div class="mt-12 text-center">
+                <a href="#contact" class="inline-block bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-full shadow-lg transition">Join our trusted community <i class="fas fa-arrow-right ml-2"></i></a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===================== PAGE 6: CONTACT ===================== -->
+    <section id="contact" class="page-transition min-h-screen py-16 px-4 bg-gradient-to-b from-white/70 to-blue-50/50 backdrop-blur-sm">
+        <div class="max-w-4xl mx-auto">
+            <div class="text-center mb-10">
+                <h2 class="text-4xl font-bold text-slate-800">Get in touch</h2>
+                <p class="text-slate-500 mt-2">Reach us directly — we reply within hours.</p>
+            </div>
+            <div class="glass-card rounded-3xl p-8 md:p-12 shadow-xl">
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div>
+                        <h3 class="text-xl font-semibold flex items-center gap-2"><i class="fas fa-address-card text-blue-500"></i> NEXUS PLACEMENT</h3>
+                        <div class="mt-4 space-y-3 text-sm">
+                            <p><i class="fas fa-map-pin w-5 text-blue-500"></i> 42 Chapel Street, Manchester M1 5PL</p>
+                            <p><i class="fas fa-phone-alt w-5 text-blue-500"></i> +44 7480 716932 (Apply via WhatsApp)</p>
+                            <p><i class="fas fa-envelope w-5 text-blue-500"></i> uk.placementnexus@gmail.com</p>
+                            <p><i class="fas fa-clock w-5 text-blue-500"></i> Mon-Fri 8:00 – 18:00</p>
+                        </div>
+                        <div class="mt-6 flex flex-wrap gap-3">
+                            <a href="https://wa.me/447480716932" target="_blank" class="btn-apply text-white px-6 py-3 rounded-full flex items-center gap-2 shadow-md"><i class="fas fa-comment-dots text-xl"></i> Apply</a>
+                            <a href="#jobs-page" class="bg-slate-200 hover:bg-slate-300 px-6 py-3 rounded-full transition">Browse jobs</a>
+                            <a href="#services-page" class="bg-blue-100 hover:bg-blue-200 text-blue-700 px-6 py-3 rounded-full transition">Our Services</a>
+                        </div>
+                    </div>
+                    <div class="bg-white/40 rounded-2xl p-6 backdrop-blur-sm">
+                        <p class="font-medium text-slate-700"><i class="fas fa-paper-plane text-blue-500 mr-2"></i> Quick apply</p>
+                        <p class="text-sm text-slate-600 mt-2">Send a message with the job title — our team will guide you.</p>
+                        <div class="mt-4 bg-blue-50 p-4 rounded-xl border border-blue-100">
+                            <span class="text-xs font-mono text-blue-800">+44 7480 716932</span>
+                            <p class="text-xs text-slate-500 mt-1">Click any "Apply" button to start your application.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ===== NEW FOOTER WITH NEON BUTTONS & CHARACTER ===== -->
+                <div class="mt-10 pt-8 border-t border-white/40">
+                    <div class="footer-glass rounded-3xl p-6 md:p-8">
+                        <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+                            <!-- Left: Animated Character -->
+                            <div class="flex items-center gap-4 flex-shrink-0">
+                                <div class="footer-character">
+                                    <span class="wave-hand">👋</span>
+                                    <span class="smile">😊</span>
+                                </div>
+                                <div>
+                                    <p class="text-white font-semibold text-sm">Hey there! 👋</p>
+                                    <p class="text-white/60 text-xs">We're here to help!</p>
+                                    <span class="footer-badge mt-1 inline-block">✨ 24/7 Support</span>
+                                </div>
+                            </div>
+
+                            <!-- Right: Social & Subscribe Buttons -->
+                            <div class="flex flex-wrap items-center justify-center gap-3">
+                                <!-- Facebook Button - Non-functional -->
+                                <span class="footer-neon-btn facebook" onclick="event.preventDefault(); return false;">
+                                    <i class="fab fa-facebook-f"></i> Facebook
+                                </span>
+                                <a href="https://wa.me/447480716932" target="_blank" class="footer-neon-btn whatsapp">
+                                    <i class="fab fa-whatsapp"></i> WhatsApp
+                                </a>
+                                <a href="mailto:uk.placementnexus@gmail.com" class="footer-neon-btn email">
+                                    <i class="fas fa-envelope"></i> Email
+                                </a>
+                                <button onclick="alert('🎉 Thank you for subscribing! You\'ll receive our latest updates.')" class="footer-neon-btn subscribe">
+                                    <i class="fas fa-bell"></i> Subscribe
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Bottom row: divider with extra info -->
+                        <div class="mt-4 pt-4 border-t border-white/10 flex flex-wrap items-center justify-between gap-3">
+                            <p class="text-white/40 text-xs">
+                                <i class="fas fa-shield-halved mr-1"></i> Secure & Trusted
+                            </p>
+                            <p class="text-white/40 text-xs">
+                                <i class="fas fa-clock mr-1"></i> Mon-Fri 8:00 – 18:00
+                            </p>
+                            <p class="text-white/40 text-xs">
+                                <i class="fas fa-map-pin mr-1"></i> Manchester, UK
+                            </p>
+                            <p class="text-white/30 text-xs">
+                                © 2026 NEXUS PLACEMENT
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-6 text-center text-xs text-slate-400 border-t border-white/30 pt-6">
+                    <i class="fas fa-building mr-1"></i> NEXUS PLACEMENT · registered in England & Wales · 42 Chapel Street, Manchester M1 5PL
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===================== STICKY FOOTER ===================== -->
+    <div class="fixed bottom-4 left-1/2 -translate-x-1/2 bg-white/80 backdrop-blur-lg rounded-full shadow-lg px-4 py-3 flex items-center gap-4 border border-white/40 z-40">
+        <a href="#home" class="hover:text-blue-600 transition text-sm flex items-center gap-1 px-2"><i class="fas fa-home"></i> Home</a>
+        <a href="#jobs-page" class="hover:text-blue-600 transition text-sm flex items-center gap-1 px-2"><i class="fas fa-briefcase"></i> Jobs</a>
+        <a href="#services-page" class="hover:text-blue-600 transition text-sm flex items-center gap-1 px-2"><i class="fas fa-concierge-bell"></i> Services</a>
+        <a href="#contact" class="hover:text-blue-600 transition text-sm flex items-center gap-1 px-2"><i class="fas fa-phone"></i> Contact</a>
+        <a href="https://wa.me/447480716932" target="_blank" class="btn-big-apply text-white inline-flex items-center justify-center relative overflow-visible">
+            <span class="btn-content"><i class="fas fa-comment-dots"></i> APPLY</span>
+            <canvas id="sparkle-canvas" class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[200%] h-[200%] pointer-events-none z-0 rounded-[60px]"></canvas>
+        </a>
+    </div>
+
+    <!-- ===================== MAIN SCRIPT ===================== -->
+    <script>
+        (function() {
+            // ----- Toggle Navigation Menu -----
+            window.toggleMenu = function() {
+                const dropdown = document.getElementById('navDropdown');
+                dropdown.classList.toggle('active');
+            };
+
+            // Close menu when clicking outside
+            document.addEventListener('click', function(event) {
+                const wrapper = document.querySelector('.nav-wrapper');
+                const dropdown = document.getElementById('navDropdown');
+                if (wrapper && dropdown && !wrapper.contains(event.target)) {
+                    dropdown.classList.remove('active');
+                }
+            });
+
+            // Close menu when clicking a link
+            document.querySelectorAll('.nav-dropdown a').forEach(link => {
+                link.addEventListener('click', function() {
+                    document.getElementById('navDropdown').classList.remove('active');
+                });
+            });
+
+            // ----- JOB DATA -----
+            const jobs = [{
+                title: "Caregiver",
+                location: "Various locations, UK",
+                desc: "Providing personal care, companionship, and daily living assistance to elderly or disabled individuals.",
+                req: "Valid passport, CV, IOM medical assessment certificate, 1+ year experience in care.",
+                ben: "£11.50/hr, accommodation provided, training, pension."
+            }, {
+                title: "Nursing Assistant",
+                location: "Various hospitals & care homes, UK",
+                desc: "Supporting nurses with patient care, vital signs monitoring, and daily clinical tasks.",
+                req: "Valid passport, CV, IOM medical assessment certificate, 6+ months nursing assistant experience.",
+                ben: "£13.20/hr, NHS pension, paid training, career progression."
+            }, {
+                title: "Warehouse Work",
+                location: "Multiple warehouse locations, UK",
+                desc: "Picking, packing, inventory management, and logistics support in a fast-paced warehouse environment.",
+                req: "Valid passport, CV, IOM medical assessment certificate, 6+ months warehouse experience.",
+                ben: "£12.80/hr, shift allowance, staff meals, overtime pay."
+            }, {
+                title: "Cleaner",
+                location: "Various commercial sites, UK",
+                desc: "General cleaning duties including vacuuming, mopping, sanitizing surfaces, and waste management.",
+                req: "Valid passport, CV, IOM medical assessment certificate, 6+ months cleaning experience.",
+                ben: "£11.80/hr, flexible hours, uniform provided, weekly pay."
+            }, {
+                title: "Housekeeper",
+                location: "Hotels & private residences, UK",
+                desc: "Maintaining cleanliness and order in private homes or hotel rooms, including laundry and deep cleaning.",
+                req: "Valid passport, CV, IOM medical assessment certificate, 1+ year housekeeping experience.",
+                ben: "£12.50/hr, accommodation options, meals provided, tips."
+            }, {
+                title: "Nanny",
+                location: "Various family homes, UK",
+                desc: "Full-time childcare including activities, feeding, bathing, and supervising children's daily routines.",
+                req: "Valid passport, CV, IOM medical assessment certificate, 2+ years nanny experience, enhanced DBS.",
+                ben: "£14.50/hr, live-in option, paid holidays, training."
+            }, {
+                title: "Farm Workers",
+                location: "Various agricultural sites, UK",
+                desc: "General farm duties including crop picking, livestock care, and seasonal agricultural tasks.",
+                req: "Valid passport, CV, IOM medical assessment certificate, 6+ months farm work experience.",
+                ben: "£11.50/hr, accommodation, seasonal bonuses, transport."
+            }, {
+                title: "Security Guard",
+                location: "Various commercial & retail sites, UK",
+                desc: "Monitoring premises, controlling access, CCTV surveillance, and incident reporting.",
+                req: "Valid passport, CV, IOM medical assessment certificate, SIA license, 1+ year security experience.",
+                ben: "£13.50/hr, uniform, shift patterns, training provided."
+            }, {
+                title: "Hotel Room Attendant",
+                location: "Various hotels, UK",
+                desc: "Making beds, cleaning rooms, restocking amenities, and ensuring guest satisfaction.",
+                req: "Valid passport, CV, IOM medical assessment certificate, 6+ months hotel experience.",
+                ben: "£12.20/hr, meals, tips, staff discount."
+            }, {
+                title: "Delivery Drivers",
+                location: "Various locations, UK",
+                desc: "Local and regional delivery of goods, route planning, and customer service.",
+                req: "Valid passport, CV, IOM medical assessment certificate, valid UK driver's license, 1+ year driving experience.",
+                ben: "£14.50/hr, vehicle provided, fuel allowance, performance bonus."
+            }, {
+                title: "Waiter/Waitress",
+                location: "Various restaurants & hotels, UK",
+                desc: "Taking orders, serving food and beverages, clearing tables, and ensuring excellent customer service.",
+                req: "Valid passport, CV, IOM medical assessment certificate, 6+ months hospitality experience.",
+                ben: "£11.80/hr + tips, meals, uniform, flexible hours."
+            }, {
+                title: "Accountant",
+                location: "Various offices, UK",
+                desc: "Managing financial records, preparing accounts, tax returns, and providing financial advice.",
+                req: "Valid passport, CV, IOM medical assessment certificate, 2+ years accounting experience, ACCA/CIMA qualified.",
+                ben: "£18.50/hr, pension, professional development, hybrid work."
+            }];
+
+            const grid = document.getElementById('job-grid');
+            if (!grid) return;
+
+            jobs.forEach((job) => {
+                const card = document.createElement('div');
+                card.className = 'glass-card rounded-2xl p-5 shadow-sm flex flex-col';
+
+                const titleRow = document.createElement('div');
+                titleRow.className = 'flex justify-between items-start mb-1';
+                const titleEl = document.createElement('h3');
+                titleEl.className = 'text-xl font-bold text-slate-800';
+                titleEl.textContent = job.title;
+                const badge = document.createElement('span');
+                badge.className = 'fulltime-badge';
+                badge.innerHTML = '<i class="fas fa-clock"></i> 8 hrs';
+                titleRow.appendChild(titleEl);
+                titleRow.appendChild(badge);
+                card.appendChild(titleRow);
+
+                const loc = document.createElement('p');
+                loc.className = 'text-sm text-slate-500 mt-1';
+                loc.innerHTML = `<i class="fas fa-map-pin mr-1"></i> ${job.location}`;
+                card.appendChild(loc);
+
+                const desc = document.createElement('div');
+                desc.className = 'mt-3 text-sm text-slate-600';
+                desc.innerHTML = `<span class="font-semibold">Description:</span> ${job.desc}`;
+                card.appendChild(desc);
+
+                const reqDiv = document.createElement('div');
+                reqDiv.className = 'mt-2 text-sm';
+                reqDiv.innerHTML = `<span class="font-semibold">Requirements:</span>`;
+                const reqBadges = document.createElement('div');
+                reqBadges.className = 'req-list mt-1';
+                const reqItems = job.req.split(',');
+                reqItems.forEach(item => {
+                    const badge = document.createElement('span');
+                    badge.className = 'req-badge';
+                    badge.textContent = item.trim();
+                    reqBadges.appendChild(badge);
+                });
+                reqDiv.appendChild(reqBadges);
+                card.appendChild(reqDiv);
+
+                const ben = document.createElement('div');
+                ben.className = 'mt-2 text-sm';
+                ben.innerHTML = `<span class="font-semibold">Benefits:</span> ${job.ben}`;
+                card.appendChild(ben);
+
+                const btnWrap = document.createElement('div');
+                btnWrap.className = 'mt-4 flex gap-2 flex-wrap';
+                const applyBtn = document.createElement('a');
+                applyBtn.href =
+                    `https://wa.me/447480716932?text=Hi%20NEXUS%2C%20I'd%20like%20to%20apply%20for%20${encodeURIComponent(job.title)}%20position`;
+                applyBtn.target = '_blank';
+                applyBtn.className = 'btn-apply text-white px-5 py-2 rounded-full text-sm font-medium flex items-center gap-2 shadow-md';
+                applyBtn.innerHTML = '<i class="fas fa-comment-dots"></i> Apply';
+                btnWrap.appendChild(applyBtn);
+                const detailBtn = document.createElement('button');
+                detailBtn.className = 'text-xs bg-gray-200 hover:bg-gray-300 px-3 py-1 rounded-full transition';
+                detailBtn.textContent = 'details';
+                btnWrap.appendChild(detailBtn);
+                card.appendChild(btnWrap);
+
+                grid.appendChild(card);
+            });
+
+            // ----- WEATHER ANIMATION (Rain, Snow, Hail) -----
+            const weatherCanvas = document.getElementById('weather-canvas');
+            if (weatherCanvas) {
+                const ctx = weatherCanvas.getContext('2d');
+                let w, h;
+                let particles = [];
+                const PARTICLE_COUNT = 180;
+
+                function resizeWeather() {
+                    const parent = weatherCanvas.parentElement;
+                    if (!parent) return;
+                    const rect = parent.getBoundingClientRect();
+                    weatherCanvas.width = rect.width;
+                    weatherCanvas.height = rect.height;
+                    w = weatherCanvas.width;
+                    h = weatherCanvas.height;
+                }
+                resizeWeather();
+                window.addEventListener('resize', resizeWeather);
+
+                class WeatherParticle {
+                    constructor() {
+                        this.reset();
+                        this.type = Math.floor(Math.random() * 3);
+                    }
+                    reset() {
+                        this.x = Math.random() * w;
+                        this.y = Math.random() * h - h;
+                        this.type = Math.floor(Math.random() * 3);
+                        this.size = this.type === 0 ? 1 + Math.random() * 2 :
+                            this.type === 1 ? 3 + Math.random() * 5 :
+                            4 + Math.random() * 6;
+                        this.speed = this.type === 0 ? 4 + Math.random() * 6 :
+                            this.type === 1 ? 0.6 + Math.random() * 1.5 :
+                            2 + Math.random() * 3;
+                        this.wobble = Math.random() * 0.5;
+                        this.offset = Math.random() * 100;
+                        if (this.type === 0) this.color = `rgba(150, 200, 255, ${0.3 + Math.random() * 0.3})`;
+                        else if (this.type === 1) this.color = `rgba(255, 255, 255, ${0.5 + Math.random() * 0.5})`;
+                        else this.color = `rgba(200, 210, 220, ${0.5 + Math.random() * 0.4})`;
+                    }
+                    update() {
+                        this.y += this.speed;
+                        this.x += Math.sin(this.y * 0.02 + this.offset) * this.wobble;
+                        if (this.type === 1) {
+                            this.x += Math.sin(this.y * 0.01 + this.offset) * 0.3;
+                        }
+                        if (this.y > h + 20) {
+                            this.reset();
+                            this.y = -20;
+                        }
+                        if (this.x > w + 20) this.x = -20;
+                        if (this.x < -20) this.x = w + 20;
+                    }
+                    draw() {
+                        ctx.beginPath();
+                        if (this.type === 0) {
+                            ctx.moveTo(this.x, this.y);
+                            ctx.lineTo(this.x + 1, this.y + this.size * 2);
+                            ctx.strokeStyle = this.color;
+                            ctx.lineWidth = 1;
+                            ctx.stroke();
+                        } else if (this.type === 1) {
+                            ctx.arc(this.x, this.y, this.size * 0.4, 0, Math.PI * 2);
+                            ctx.fillStyle = this.color;
+                            ctx.fill();
+                            ctx.shadowColor = 'rgba(255,255,255,0.2)';
+                            ctx.shadowBlur = 8;
+                            ctx.fill();
+                            ctx.shadowBlur = 0;
+                        } else {
+                            const s = this.size * 0.5;
+                            ctx.fillStyle = this.color;
+                            ctx.shadowColor = 'rgba(200,210,220,0.3)';
+                            ctx.shadowBlur = 4;
+                            ctx.fillRect(this.x - s / 2, this.y - s / 2, s, s);
+                            ctx.shadowBlur = 0;
+                        }
+                    }
+                }
+
+                for (let i = 0; i < PARTICLE_COUNT; i++) {
+                    const p = new WeatherParticle();
+                    p.y = Math.random() * h;
+                    particles.push(p);
+                }
+
+                function animateWeather() {
+                    ctx.clearRect(0, 0, w, h);
+                    particles.forEach(p => { p.update();
+                        p.draw(); });
+                    requestAnimationFrame(animateWeather);
+                }
+                animateWeather();
+
+                window.addEventListener('orientationchange', () => { setTimeout(resizeWeather, 200); });
+            }
+
+            // ----- Particle Systems (Logo, Fire, Sparkle) -----
+            const logoContainer = document.getElementById('logo-container');
+            const logoCanvas = document.getElementById('particle-canvas');
+            if (logoContainer && logoCanvas) {
+                const ctx = logoCanvas.getContext('2d');
+                let w, h, particles = [];
+                const COUNT = 90;
+
+                function resizeLogo() {
+                    const rect = logoContainer.getBoundingClientRect();
+                    logoCanvas.width = rect.width;
+                    logoCanvas.height = rect.height;
+                    w = logoCanvas.width;
+                    h = logoCanvas.height;
+                }
+                resizeLogo();
+                window.addEventListener('resize', resizeLogo);
+
+                class Particle {
+                    constructor() { this.reset(); }
+                    reset() {
+                        this.x = Math.random() * w;
+                        this.y = Math.random() * h;
+                        this.r = 1.8 + Math.random() * 2.5;
+                        this.dx = (Math.random() - 0.5) * 0.9;
+                        this.dy = (Math.random() - 0.5) * 0.9;
+                        this.alpha = 0.3 + Math.random() * 0.5;
+                    }
+                    update() {
+                        this.x += this.dx;
+                        this.y += this.dy;
+                        if (this.x < 0 || this.x > w) this.dx *= -1;
+                        if (this.y < 0 || this.y > h) this.dy *= -1;
+                    }
+                    draw() {
+                        ctx.beginPath();
+                        ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
+                        ctx.fillStyle = `rgba(255,255,255,${this.alpha})`;
+                        ctx.fill();
+                    }
+                }
+                for (let i = 0; i < COUNT; i++) particles.push(new Particle());
+
+                function animateLogo() {
+                    ctx.clearRect(0, 0, w, h);
+                    particles.forEach(p => { p.update();
+                        p.draw(); });
+                    for (let i = 0; i < particles.length; i++) {
+                        for (let j = i + 1; j < particles.length; j++) {
+                            const dx = particles[i].x - particles[j].x,
+                                dy = particles[i].y - particles[j].y;
+                            const dist = Math.sqrt(dx * dx + dy * dy);
+                            if (dist < 60) {
+                                ctx.beginPath();
+                                ctx.moveTo(particles[i].x, particles[i].y);
+                                ctx.lineTo(particles[j].x, particles[j].y);
+                                ctx.strokeStyle = `rgba(255,255,255,${0.25 * (1 - dist/60)})`;
+                                ctx.lineWidth = 1;
+                                ctx.stroke();
+                            }
+                        }
+                    }
+                    requestAnimationFrame(animateLogo);
+                }
+                animateLogo();
+            }
+
+            // FIRE
+            const fireWrapper = document.getElementById('fire-wrapper');
+            const fireCanvas = document.getElementById('fire-canvas');
+            if (fireWrapper && fireCanvas) {
+                const ctx2 = fireCanvas.getContext('2d');
+                let w2, h2, fireParticles = [];
+                const FIRE_COUNT = 120;
+
+                function resizeFire() {
+                    const rect = fireWrapper.getBoundingClientRect();
+                    fireCanvas.width = rect.width;
+                    fireCanvas.height = rect.height;
+                    w2 = fireCanvas.width;
+                    h2 = fireCanvas.height;
+                }
+                resizeFire();
+                window.addEventListener('resize', resizeFire);
+
+                class FireParticle {
+                    constructor() { this.reset(); }
+                    reset() {
+                        this.x = Math.random() * w2;
+                        this.y = h2 * 0.7 + Math.random() * h2 * 0.3;
+                        this.r = 4 + Math.random() * 14;
+                        this.dx = (Math.random() - 0.5) * 0.6;
+                        this.dy = -0.6 - Math.random() * 1.2;
+                        this.life = 0.6 + Math.random() * 0.4;
+                        this.decay = 0.004 + Math.random() * 0.008;
+                        this.alpha = 0.7 + Math.random() * 0.3;
+                        const colors = ['rgba(255,120,20,', 'rgba(255,180,30,', 'rgba(255,80,10,', 'rgba(255,200,50,'];
+                        this.colorBase = colors[Math.floor(Math.random() * colors.length)];
+                    }
+                    update() {
+                        this.x += this.dx + (Math.random() - 0.5) * 0.2;
+                        this.y += this.dy;
+                        this.r *= 0.996;
+                        this.life -= this.decay;
+                        this.alpha = this.life * 0.9;
+                        if (this.life < 0.05 || this.r < 1) {
+                            this.reset();
+                            this.life = 0.6 + Math.random() * 0.4;
+                            this.r = 4 + Math.random() * 14;
+                        }
+                    }
+                    draw() {
+                        ctx2.beginPath();
+                        ctx2.arc(this.x, this.y, this.r, 0, Math.PI * 2);
+                        ctx2.fillStyle = this.colorBase + (this.alpha * 0.8) + ')';
+                        ctx2.fill();
+                        ctx2.beginPath();
+                        ctx2.arc(this.x - this.r * 0.2, this.y - this.r * 0.2, this.r * 0.4, 0, Math.PI * 2);
+                        ctx2.fillStyle = `rgba(255,255,200,${this.alpha * 0.3})`;
+                        ctx2.fill();
+                    }
+                }
+                for (let i = 0; i < FIRE_COUNT; i++) {
+                    const p = new FireParticle();
+                    p.x = Math.random() * w2;
+                    p.y = Math.random() * h2;
+                    p.r = 2 + Math.random() * 16;
+                    fireParticles.push(p);
+                }
+
+                function animateFire() {
+                    ctx2.clearRect(0, 0, w2, h2);
+                    fireParticles.forEach(p => { p.update();
+                        p.draw(); });
+                    for (let i = 0; i < 5; i++) {
+                        const spark = new FireParticle();
+                        spark.x = Math.random() * w2;
+                        spark.y = h2 * 0.5 + Math.random() * h2 * 0.3;
+                        spark.r = 1 + Math.random() * 3;
+                        spark.dy = -1.2 - Math.random() * 1.5;
+                        spark.life = 0.2 + Math.random() * 0.3;
+                        spark.alpha = 0.9;
+                        spark.colorBase = 'rgba(255,220,80,';
+                        spark.draw();
+                    }
+                    requestAnimationFrame(animateFire);
+                }
+                animateFire();
+            }
+
+            // SPARKLE
+            const sparkleCanvas = document.getElementById('sparkle-canvas');
+            if (sparkleCanvas) {
+                const ctx3 = sparkleCanvas.getContext('2d');
+                let w3, h3, sparkles = [];
+                const SPARKLE_COUNT = 60;
+
+                function resizeSparkle() {
+                    const parent = sparkleCanvas.parentElement;
+                    if (!parent) return;
+                    const rect = parent.getBoundingClientRect();
+                    const size = Math.max(rect.width, rect.height) * 2;
+                    sparkleCanvas.width = size;
+                    sparkleCanvas.height = size;
+                    w3 = sparkleCanvas.width;
+                    h3 = sparkleCanvas.height;
+                }
+                resizeSparkle();
+                window.addEventListener('resize', resizeSparkle);
+
+                class Sparkle {
+                    constructor() { this.reset(); }
+                    reset() {
+                        this.x = (Math.random() - 0.5) * w3 * 0.9;
+                        this.y = (Math.random() - 0.5) * h3 * 0.9;
+                        this.r = 2 + Math.random() * 5;
+                        this.dx = (Math.random() - 0.5) * 0.8;
+                        this.dy = (Math.random() - 0.5) * 0.8;
+                        this.life = 0.5 + Math.random() * 0.5;
+                        this.maxLife = this.life;
+                        this.alpha = 0.7 + Math.random() * 0.3;
+                    }
+                    update() {
+                        this.x += this.dx;
+                        this.y += this.dy;
+                        this.life -= 0.005;
+                        this.alpha = (this.life / this.maxLife) * 0.9;
+                        if (this.life < 0.05) {
+                            this.reset();
+                            this.life = 0.5 + Math.random() * 0.5;
+                            this.maxLife = this.life;
+                            this.r = 2 + Math.random() * 5;
+                        }
+                    }
+                    draw() {
+                        const angle = performance.now() / 1000 + this.x;
+                        const size = this.r * (0.7 + 0.3 * Math.sin(angle * 2));
+                        ctx3.save();
+                        ctx3.translate(this.x, this.y);
+                        ctx3.rotate(angle * 0.5);
+                        ctx3.globalAlpha = this.alpha * 0.8;
+                        const spikes = 4;
+                        const outerRadius = size;
+                        const innerRadius = size * 0.3;
+                        ctx3.beginPath();
+                        for (let i = 0; i < spikes * 2; i++) {
+                            const radius = i % 2 === 0 ? outerRadius : innerRadius;
+                            const angle2 = (i / (spikes * 2)) * Math.PI * 2;
+                            const x = radius * Math.cos(angle2);
+                            const y = radius * Math.sin(angle2);
+                            if (i === 0) ctx3.moveTo(x, y);
+                            else ctx3.lineTo(x, y);
+                        }
+                        ctx3.closePath();
+                        ctx3.fillStyle = `rgba(255,255,255,${this.alpha * 0.9})`;
+                        ctx3.fill();
+                        ctx3.shadowColor = 'rgba(255,215,100,0.8)';
+                        ctx3.shadowBlur = 12;
+                        ctx3.fill();
+                        ctx3.restore();
+                        ctx3.beginPath();
+                        ctx3.arc(this.x, this.y, size * 0.4, 0, Math.PI * 2);
+                        ctx3.fillStyle = `rgba(255,230,150,${this.alpha * 0.3})`;
+                        ctx3.fill();
+                    }
+                }
+                for (let i = 0; i < SPARKLE_COUNT; i++) sparkles.push(new Sparkle());
+
+                function animateSparkle() {
+                    ctx3.clearRect(0, 0, w3, h3);
+                    sparkles.forEach(p => { p.update();
+                        p.draw(); });
+                    requestAnimationFrame(animateSparkle);
+                }
+                animateSparkle();
+                window.addEventListener('orientationchange', () => { setTimeout(resizeSparkle, 200); });
+            }
+        })();
+    </script>
+</body>
+</html>
